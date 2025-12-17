@@ -4,17 +4,18 @@
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![MediaPipe](https://img.shields.io/badge/MediaPipe-0.10-orange)
-![OpenCV](https://img.shields.io/badge/OpenCV-4.8%2B-red)
+![YOLOv8](https://img.shields.io/badge/YOLOv8-Face-red)
 
-Video face anonymization using MediaPipe and OpenCV.
+Video face anonymization using MediaPipe and YOLOv8-Face.
 
 ## Features
 
 - ✅ Real-time face detection with MediaPipe
+- ✅ **2 detectors**: MediaPipe (selfies) & YOLOv8-Face (distant faces)
 - ✅ 3 anonymization methods: Blur, Pixelate, Black
 - ✅ Works with webcam or video files
 - ✅ Automatic output naming with timestamps
-- ✅ Configurable padding and confidence
+- ✅ Configurable padding and confidence    
 
 ## Installation
 ```bash
@@ -23,7 +24,7 @@ git clone https://github.com/Moncef-Bj/face-anonymizer.git
 cd face-anonymizer
 
 # Create virtual environment
-uv venv
+uv venv --python 3.11
 .venv\Scripts\activate  # Windows
 source .venv/bin/activate  # Linux/Mac
 
@@ -33,28 +34,40 @@ uv pip install -e .
 
 ## Usage
 
-### Webcam
+
 ```bash
-python src/face_anonymizer/cli.py 0
+python src/face_anonymizer/cli.py INPUT [method] [padding] [detector]
 ```
 
-### Video file
-```bash
-python src/face_anonymizer/cli.py video.mp4 blur 0.3
-```
+### Arguments
 
-### Options
-- Method: `blur`, `pixelate`, `black`
-- Padding: `0.0` to `1.0` (margin around faces)
-- Custom output: Add filename as last argument
+| Argument | Options | Default | Description |
+|----------|---------|---------|-------------|
+| INPUT | file.mp4 or 0 | required | Video file or webcam |
+| method | blur, pixelate, black | blur | Anonymization method |
+| padding | 0.0 - 1.0 | 0.3 | Margin around faces |
+| detector | mediapipe, yolo | mediapipe | Detection model |
+
+### Detectors
+
+| Detector | Best for | Speed |
+|----------|----------|-------|
+| `mediapipe` | Selfies, webcam, close faces | ⚡ Fast |
+| `yolo` | Videos, distant faces, crowds | 🎯 Accurate |
 
 ## Examples
 ```bash
-# Webcam with pixelate
-python src/face_anonymizer/cli.py 0 pixelate 0.4
+# Webcam with MediaPipe (default, good for selfies)
+python src/face_anonymizer/cli.py 0
 
-# Video with custom output
-python src/face_anonymizer/cli.py input.mp4 blur 0.3 output.mp4
+# Webcam with YOLOv8-Face (better for distant faces)
+python src/face_anonymizer/cli.py 0 blur 0.3 yolo
+
+# Video file with pixelate effect
+python src/face_anonymizer/cli.py video.mp4 pixelate 0.4 yolo
+
+# Video with black rectangles
+python src/face_anonymizer/cli.py input.mp4 black 0.3 mediapipe
 ```
 
 ## Project Structure
@@ -62,27 +75,29 @@ python src/face_anonymizer/cli.py input.mp4 blur 0.3 output.mp4
 face-anonymizer/
 ├── src/face_anonymizer/
 │   ├── __init__.py      # Package initialization
-│   ├── detector.py      # MediaPipe face detection
+│   ├── detector.py      # MediaPipe & YOLOv8 detectors
 │   ├── anonymizer.py    # Blur, pixelate, black methods
 │   ├── pipeline.py      # Video processing pipeline
 │   └── cli.py           # Command-line interface
+├── models/
+│   └── yolov8n-face.pt  # YOLOv8-Face model
 ├── pyproject.toml       # Package configuration
 ├── requirements.txt     # Dependencies
-├── LICENSE             # MIT License
-└── README.md           # Documentation
+└── README.md
 ```
+
 ## Limitations
 
-- Works best with close-up faces (selfies, video calls)
-- May struggle with distant faces or crowded scenes
-- MediaPipe optimized for frontal faces
+- MediaPipe works best with close-up frontal faces
+- YOLOv8-Face better for varied conditions but slower
+- Very small faces may still be missed
 
 ## Future Improvements
 
-- [ ] Add YOLOv8-Face detector for better distant face detection
-- [ ] Add face tracking for consistent anonymization
+- [ ] Add face tracking for consistent IDs across frames
+- [ ] Add GUI interface (Gradio/Streamlit)
 - [ ] Support batch processing
-- [ ] Add GUI interface
+- [ ] Add Docker support
 
 ## License
 

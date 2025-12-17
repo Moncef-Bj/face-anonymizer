@@ -1,10 +1,37 @@
-# Python-generated files
-__pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
+# Videos
+*.mp4
+*.avi
+*.mov
+*.mkv
 
-# Virtual environments
-.venv
+# Models
+*.pt
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# uv
+uv.lock
+
+# Tests output
+tests/*_blur_*.mp4
+tests/*_pixelate_*.mp4
+tests/*_black_*.mp4
+
+# Keep these folders
+!tests/
+!models/
+
+# Egg info
+*.egg-info/

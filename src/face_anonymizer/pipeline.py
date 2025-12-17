@@ -1,5 +1,5 @@
 import cv2
-from face_anonymizer.detector import FaceDetector
+#from face_anonymizer.detector import get_detector
 from face_anonymizer.anonymizer import blur, pixelate, black 
 from datetime import datetime
 from pathlib import Path
@@ -37,18 +37,21 @@ def generate_output_filename(input_path, method, padding, output_dir=None):
 class VideoProcessor:
     """Traite une vidéo pour anonymiser les visages."""
     
-    def __init__(self, method="blur", padding=0.3, **kwargs):
+    def __init__(self, method="blur", padding=0.3, detector_name="mediapipe", **kwargs):
         """
         Initialise le processeur vidéo.
         
         Args:
             method: Méthode d'anonymisation ("blur", "pixelate", "black")
             padding: Marge autour des visages (0.0 à 1.0)
+            detector_name: "mediapipe" or "yolo"
             **kwargs: Arguments pour le détecteur (min_confidence, etc.)
         """
         self.method = method
         self.padding = padding
-        self.detector = FaceDetector(**kwargs)
+        from face_anonymizer.detector import get_detector
+        self.detector = get_detector(detector_name, **kwargs)
+
     
     def _apply_padding(self, face, frame_width, frame_height):
         """
