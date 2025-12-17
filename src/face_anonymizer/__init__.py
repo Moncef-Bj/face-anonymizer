@@ -1,7 +1,22 @@
-"""Face Anonymizer - Anonymisation de visages dans les vidéos."""
+"""Face Anonymizer - Video face anonymization tool."""
 
-from face_anonymizer.detector import FaceDetector
-from face_anonymizer import anonymizer
+from face_anonymizer.detector import (
+    MediaPipeDetector,
+    YOLOFaceDetector,
+    get_detector,
+    FaceDetector,  # Backward compatibility
+)
+from face_anonymizer.anonymizer import blur, pixelate, black
+from face_anonymizer.pipeline import VideoProcessor
 
-__version__ = "0.1.0"
-__all__ = ["FaceDetector", "anonymizer"]
+__version__ = "1.0.0"
+__all__ = [
+    "MediaPipeDetector",
+    "YOLOFaceDetector", 
+    "get_detector",
+    "FaceDetector",
+    "blur",
+    "pixelate", 
+    "black",
+    "VideoProcessor",
+]
