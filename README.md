@@ -70,7 +70,7 @@ face-anonymizer/
 ├── requirements.txt     # Dependencies
 ├── LICENSE             # MIT License
 └── README.md           # Documentation
-
+```
 ## Limitations
 
 - Works best with close-up faces (selfies, video calls)
