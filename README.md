@@ -1,5 +1,11 @@
 # Face Anonymizer
 
+
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+![MediaPipe](https://img.shields.io/badge/MediaPipe-0.10-orange)
+![OpenCV](https://img.shields.io/badge/OpenCV-4.8%2B-red)
+
 Video face anonymization using MediaPipe and OpenCV.
 
 ## Features
@@ -13,7 +19,7 @@ Video face anonymization using MediaPipe and OpenCV.
 ## Installation
 ```bash
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/face-anonymizer.git
+git clone https://github.com/Moncef-Bj/face-anonymizer.git
 cd face-anonymizer
 
 # Create virtual environment
@@ -50,6 +56,20 @@ python src/face_anonymizer/cli.py 0 pixelate 0.4
 # Video with custom output
 python src/face_anonymizer/cli.py input.mp4 blur 0.3 output.mp4
 ```
+
+## Project Structure
+```
+face-anonymizer/
+├── src/face_anonymizer/
+│   ├── __init__.py      # Package initialization
+│   ├── detector.py      # MediaPipe face detection
+│   ├── anonymizer.py    # Blur, pixelate, black methods
+│   ├── pipeline.py      # Video processing pipeline
+│   └── cli.py           # Command-line interface
+├── pyproject.toml       # Package configuration
+├── requirements.txt     # Dependencies
+├── LICENSE             # MIT License
+└── README.md           # Documentation
 
 ## Limitations
 
