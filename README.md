@@ -52,8 +52,8 @@ python src/face_anonymizer/cli.py INPUT [method] [padding] [detector]
 
 | Detector | Best for | Speed |
 |----------|----------|-------|
-| `mediapipe` | Selfies, webcam, close faces | ⚡ Fast |
-| `yolo` | Videos, distant faces, crowds | 🎯 Accurate |
+| `mediapipe` | Selfies, webcam, close faces | Fast |
+| `yolo` | Videos, distant faces, crowds |  Accurate |
 
 ## Examples
 ```bash
